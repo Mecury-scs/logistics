@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.logistics.dao.AuthsDAO">
+    <resultMap id="authsMap" type="com.qf.logistics.pojo.Auths">
+        <id property="authId" column="auth_id"></id>
+        <collection property="authsList" column="auth_id" select="findAllByParentId"></collection>
+    </resultMap>
+
+    <select id="findAllByParentId" resultMap="authsMap">
+        select *
+        from auths where parent_id = #{id};
+    </select>
+
+    <select id="findAllByRoleId" resultMap="authsMap">
+        SELECT
+            a.auth_id,
+            a.auth_name,
+            a.menu_url,
+            a.parent_id
+        FROM
+            auths AS a
+                INNER JOIN role_auth AS ra ON a.auth_id = ra.auth_id
+        WHERE
+            ra.role_id = #{id}
+    </select>
+
+
+    <insert id="saveAuths">
+        insert into role_auth(role_id, auth_id) values
+        <foreach collection="authList" item="n" separator=",">
+            (#{roleId}, #{n})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByRoleId">
+        delete from role_auth where role_id = #{roleId}
+    </delete>
+
+
+</mapper>

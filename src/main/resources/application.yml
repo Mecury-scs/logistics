@@ -1,0 +1,27 @@
+#端口号
+server:
+  port: 8088
+#spring配置
+spring:
+  #数据库配置文件
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/logistics?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+      username: root
+      password: admin
+  #上传文件配置
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1000MB
+#mybatis配置
+
+#日志输出等级
+logging:
+  level:
+    com.qf.logistics.dao: debug
+#图片路径
+base:
+  path: G:\3Test\img\
+    
