@@ -38,10 +38,10 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setState(1);
             String encode = passwordEncoder.encode(customer.getPwd());
             customer.setPwd(encode);
-            if (customerDAO.insert(customer)>0){
-               return ResultData.createSuccessJsonResult("");
-            }else {
-                return  ResultData.createFailJsonResult("30001","添加失败,毁灭吧");
+            if (customerDAO.insert(customer) > 0) {
+                return ResultData.createSuccessJsonResult("");
+            } else {
+                return ResultData.createFailJsonResult("30001", "添加失败,毁灭吧");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,19 +53,19 @@ public class CustomerServiceImpl implements CustomerService {
     public ResultData delete(Integer userId) {
         Customer customer = customerDAO.selectById(userId);
         customer.setState(3);
-        if ( customerDAO.updateById(customer)>0){
+        if (customerDAO.updateById(customer) > 0) {
             return ResultData.createSuccessJsonResult("删除成功");
-        }else {
-            return ResultData.createFailJsonResult("30001","删除失败,删除失败,还玩不玩");
+        } else {
+            return ResultData.createFailJsonResult("30001", "删除失败,删除失败,还玩不玩");
         }
     }
 
     @Override
     public ResultData update(Customer customer) {
-        if (customerDAO.updateById(customer)>0){
+        if (customerDAO.updateById(customer) > 0) {
             return ResultData.createSuccessJsonResult("更新成功");
-        }else {
-            return ResultData.createFailJsonResult("30003","更新失败,技术员");
+        } else {
+            return ResultData.createFailJsonResult("30003", "更新失败,技术员");
         }
     }
 }
